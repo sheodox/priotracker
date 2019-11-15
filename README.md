@@ -1,24 +1,5 @@
-# README
+# Priotracker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Recreating a priority tracking app I build long ago with nwjs that's been lost to time!
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Priotracker is a todo tracker, allowing you to make todo lists sorted by priority.
