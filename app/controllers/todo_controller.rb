@@ -6,18 +6,32 @@ class TodoController < ApplicationController
       low: Todo.where(priority: 3)
     }
     respond_to do |format|
-      format.json { render :json => todos }
+      format.json { render json: todos }
     end
   end
 
   def create
-    Todo.new(todo_params)
-    this.index
+    Todo
+      .new(todo_params)
+      .save
+    index
+  end
+
+  def destroy
+    todo = Todo.find(params[:id])
+    todo&.destroy
+    index
+  end
+
+  def update
+    todo = Todo.find(params[:id])
+    todo&.update todo_params
+    index
   end
 
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :description)
+    params.require(:todo).permit(:name, :description, :priority)
   end
 end
