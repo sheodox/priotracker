@@ -100,6 +100,15 @@ class TodoItem extends React.Component<TodoProps, TodoState> {
         });
         this.props.refresh();
     };
+    hide = async () => {
+        await request(`/todo/${this.props.todo.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                visible: false
+            })
+        });
+        this.props.refresh();
+    };
     edit = () => {
         this.setState({editing: true})
     };
@@ -118,6 +127,15 @@ class TodoItem extends React.Component<TodoProps, TodoState> {
         }
     };
     render() {
+        if (!this.props.todo.visible) {
+            return null;
+        }
+        const button = (icon: string, click:(any)) => {
+            return <button className="btn btn-sm btn-light float-right icon-button" onClick={click}>
+                <Icon name={icon} />
+            </button>
+        };
+
         const inputId = `checkbox-${this.props.uniqueId}`,
             descriptionTooltip = this.props.todo.description || '<No description>';
         return <li className='list-group-item form-check'>
@@ -125,9 +143,8 @@ class TodoItem extends React.Component<TodoProps, TodoState> {
             <label htmlFor={inputId} className='form-check-label' title={descriptionTooltip}>
                 {this.props.todo.name}
             </label>
-            <button className="btn btn-sm btn-light float-right icon-button" onClick={this.edit}>
-                <Icon name="menu" />
-            </button>
+            {button('eye', this.hide)}
+            {button('menu', this.edit)}
             <If insertWhen={this.state.editing}>
                 <EditModal doneEditing={this.doneEditing} todo={this.props.todo}/>
             </If>
