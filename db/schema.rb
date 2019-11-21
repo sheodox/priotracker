@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_034401) do
+ActiveRecord::Schema.define(version: 2019_11_21_023832) do
 
   create_table "todos", force: :cascade do |t|
     t.integer "priority"
     t.string "name"
     t.text "description"
-    t.boolean "visible"
+    t.boolean "visible", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
