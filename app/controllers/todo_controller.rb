@@ -32,6 +32,6 @@ class TodoController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :description, :priority)
+    params.require(:todo).permit(:name, :description, :priority, :visible)
   end
 end
