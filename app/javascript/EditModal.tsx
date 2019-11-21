@@ -1,7 +1,6 @@
 import React from 'react';
 import {Todo} from "./todo-types";
 import {BoundInput, BoundTextArea} from "./BoundInputs";
-import {Icon} from './Icon';
 import {Modal} from './Modal'
 
 interface EditModalState {
