@@ -172,7 +172,7 @@ class TodoItem extends React.Component<TodoProps, TodoState> {
 		const button = (icon: string, click: any) => {
 			return (
 				<button
-					className="btn btn-sm btn-light float-right icon-button"
+					className="btn btn-sm btn-light icon-button"
 					onClick={click}
 				>
 					<Icon name={icon} />
@@ -197,8 +197,10 @@ class TodoItem extends React.Component<TodoProps, TodoState> {
 				>
 					{this.props.todo.name}
 				</label>
-				{button('eye', this.hide)}
-				{button('menu', this.edit)}
+				<div className="float-right">
+					{button('eye', this.hide)}
+					{button('menu', this.edit)}
+				</div>
 				<If insertWhen={this.state.editing}>
 					<EditModal doneEditing={this.doneEditing} todo={this.props.todo} />
 				</If>
