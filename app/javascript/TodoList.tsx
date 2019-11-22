@@ -71,8 +71,8 @@ export class TodoList extends React.Component<TodoListProps, TodoListState> {
                 No todos! Congratulations!
             </p>;
 
-        return <div className="col">
-            <div className="card col-sm m-1">
+        return <div className="col-sm">
+            <div className="card m-1">
                 <div className="card-body">
                     <h2 className="card-title">{this.props.priorityName}</h2>
                     <div className="card-text">
