@@ -29,6 +29,11 @@ class TodoController < ApplicationController
     index
   end
 
+  def show_all
+    Todo.where(priority: params[:priority]).update_all(visible: true)
+    index
+  end
+
   private
 
   def todo_params

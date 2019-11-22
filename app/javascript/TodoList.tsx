@@ -49,25 +49,43 @@ export class TodoList extends React.Component<TodoListProps, TodoListState> {
 
         await this.props.refresh();
     };
+    showAll = async () => {
+        await request('/todo/show_all', {
+            method: 'POST',
+            body: JSON.stringify({
+                priority: this.props.priorityLevel
+            })
+        });
+        await this.props.refresh();
+    };
     render() {
         const list = this.props.list.map((todo: Todo) => {
-            const key = `prio-${this.props.priorityLevel}-todo-item-${todo.id}`;
-            return <TodoItem key={key} uniqueId={key} todo={todo} refresh={this.props.refresh}/>
-        });
-        return <div className="card col-sm m-1">
-            <div className="card-body">
-                <h2 className="card-title">{this.props.priorityName}</h2>
-                <div className="card-text">
-                    <form onSubmit={this.handleSubmit}>
-                        <BoundInput host={this} stateKey='newTodoName' label="New todo"/>
-                        <BoundTextArea host={this} stateKey='newTodoDescription' label="Description"/>
-                        <button type="submit" className="btn btn-primary">Add</button>
-                    </form>
-                    <ul className='list-group list-group-flush container'>
-                        {list}
-                    </ul>
+                const key = `prio-${this.props.priorityLevel}-todo-item-${todo.id}`;
+                return <TodoItem key={key} uniqueId={key} todo={todo} refresh={this.props.refresh}/>
+            }),
+            numHidden = this.props.list.filter(todo => !todo.visible).length,
+            listContainer = <ul className='list-group list-group-flush container'>
+                    {list}
+                </ul>,
+            emptyListMessage = <p>
+                No todos! Congratulations!
+            </p>;
+
+        return <div className="col">
+            <div className="card col-sm m-1">
+                <div className="card-body">
+                    <h2 className="card-title">{this.props.priorityName}</h2>
+                    <div className="card-text">
+                        <form onSubmit={this.handleSubmit}>
+                            <BoundInput host={this} stateKey='newTodoName' label="New todo"/>
+                            <BoundTextArea host={this} stateKey='newTodoDescription' label="Description"/>
+                            <button type="submit" className="btn btn-primary">Add</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            {numHidden > 0 && <button className="w-100 btn btn-secondary" onClick={this.showAll}>Show all ({numHidden} hidden)</button>}
+            {this.props.list.length > 0 ? listContainer : emptyListMessage}
         </div>
     }
 }
