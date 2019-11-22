@@ -36,5 +36,3 @@ yarn-debug.log*
 .yarn-integrity
 
 .idea
-
-public/open-iconic.svg
